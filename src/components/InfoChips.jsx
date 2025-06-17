@@ -13,6 +13,7 @@ const InfoChips = () => {
 <Button variant="contained" color="secondary">
   Pending
 </Button></Box>
+
  )
 }
 

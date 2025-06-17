@@ -6,24 +6,30 @@ import {
   InputLabel,
   FormControl,
   Button,
-} from '@mui/material';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState } from 'react';
+} from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 
 const CreateTask = ({ initialValues = {}, onSubmit }) => {
   const [form, setForm] = useState({
-    title: initialValues.title || '',
-    description: initialValues.description || '',
-    status: initialValues.status || 'Pending',
-    dueDate: initialValues.dueDate || null,
+    title: initialValues.title || "",
+    description: initialValues.description || "",
+    status: initialValues.status || "Pending",
+    dueDate: initialValues.dueDate ? dayjs(initialValues.dueDate) : null,
   });
 
-  const handleChange = (field) => (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [field]: e?.$d || e.target.value, // handle DatePicker and TextField
-    }));
-  };
+   useEffect(() => {
+    setForm({
+      title: initialValues.title || "",
+      description: initialValues.description || "",
+      status: initialValues.status || "Pending",
+    dueDate: initialValues.dueDate ? dayjs(initialValues.dueDate) : null,
+    });
+  }, [initialValues]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,12 +40,12 @@ const CreateTask = ({ initialValues = {}, onSubmit }) => {
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+      sx={{ display: "flex", flexDirection: "column", gap: 2, width: "100%" }}
     >
       <TextField
         label="Title"
         value={form.title}
-        onChange={handleChange('title')}
+        onChange={(e) => setForm({ ...form, title: e.target.value })}
         fullWidth
         required
       />
@@ -47,10 +53,10 @@ const CreateTask = ({ initialValues = {}, onSubmit }) => {
       <TextField
         label="Description"
         value={form.description}
-        onChange={handleChange('description')}
+        onChange={(e) => setForm({ ...form, description: e.target.value })}
         fullWidth
         multiline
-        rows={4}
+        rows={3}
         required
       />
 
@@ -59,22 +65,26 @@ const CreateTask = ({ initialValues = {}, onSubmit }) => {
         <Select
           value={form.status}
           label="Status"
-          onChange={handleChange('status')}
+        onChange={(e) => setForm({ ...form, status: e.target.value })}
         >
           <MenuItem value="Pending">Pending</MenuItem>
           <MenuItem value="Completed">Completed</MenuItem>
         </Select>
       </FormControl>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer components={["DatePicker"]}>
+          <DatePicker
+            label="Due Date"
+            value={form.dueDate}
+          onChange={(newDate) => setForm({ ...form, dueDate: newDate })}
+             slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
 
-      {/* <DatePicker
-        label="Due Date"
-        value={form.dueDate}
-        onChange={handleChange('dueDate')}
-        slotProps={{ textField: { fullWidth: true } }}
-      /> */}
+          />
+        </DemoContainer>
+      </LocalizationProvider>
 
       <Button type="submit" variant="contained" color="primary">
-        {initialValues.title ? 'Update Task' : 'Create Task'}
+        {initialValues.title ? "Update Task" : "Create Task"}
       </Button>
     </Box>
   );
