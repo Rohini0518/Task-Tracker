@@ -16,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { green, red } from "@mui/material/colors";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Snackbar, Alert } from "@mui/material";
 import CreateTask from "./CreateTask";
 
 const TaskCard = () => {
@@ -24,6 +25,11 @@ const TaskCard = () => {
   const [error, setError] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const fetchTasks = async () => {
     setLoading(true);
@@ -69,7 +75,9 @@ const TaskCard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this task?")) return;
     try {
-      await axios.delete(`/api/tasks/${id}`);
+      await axios.delete(
+        `https://task-tracker-backend-ssk9.onrender.com/api/deleteTask/${id}`
+      );
       setTasks((prev) => prev.filter((t) => t._id !== id));
     } catch (err) {
       console.error(err);
@@ -80,16 +88,24 @@ const TaskCard = () => {
   const handleCreateOrUpdate = async (formValues) => {
     try {
       if (taskToEdit && taskToEdit._id) {
-        await axios.put(`/api/tasks/${taskToEdit._id}`, formValues);
+        await axios.put(
+          `https://task-tracker-backend-ssk9.onrender.com/api/updateTask/${taskToEdit._id}`,
+          formValues
+        );
+        showSnackbar("Task updated successfully", "success");
       } else {
-        await axios.post("/api/tasks", formValues);
+        await axios.post(
+          "https://task-tracker-backend-ssk9.onrender.com/api/createTask",
+          formValues
+        );
+        showSnackbar("Task created successfully", "success");
       }
       setOpenForm(false);
       setTaskToEdit(null);
       fetchTasks();
     } catch (err) {
       console.error(err);
-      alert("Failed to save task");
+      showSnackbar("Failed to save task", "error");
     }
   };
 
@@ -97,23 +113,31 @@ const TaskCard = () => {
     setOpenForm(false);
     setTaskToEdit(null);
   };
+  const showSnackbar = (message, severity = "success") => {
+    setSnackbar({ open: true, message, severity });
+  };
 
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
   return (
     <>
       <Box
         sx={{
           display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  alignContent: "center",
-                   width: "80%",
-                  mx: "auto",
-                  my: 1,
-                  borderRadius: 2,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          alignContent: "center",
+          width: "80%",
+          mx: "auto",
+          my: 1,
+          borderRadius: 2,
         }}
       >
-        <Typography variant="h5" sx={{color:'green'}}>Task List</Typography>
+        <Typography variant="h5" sx={{ color: "green" }}>
+          Task List
+        </Typography>
         <Button variant="contained" onClick={handleCreateClick}>
           Create Task
         </Button>
@@ -264,6 +288,22 @@ const TaskCard = () => {
               />
             </DialogContent>
           </Dialog>
+
+          <Snackbar
+            open={snackbar.open}
+            autoHideDuration={3000}
+            onClose={handleCloseSnackbar}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert
+              onClose={handleCloseSnackbar}
+              severity={snackbar.severity}
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {snackbar.message}
+            </Alert>
+          </Snackbar>
         </Box>
       )}
     </>
