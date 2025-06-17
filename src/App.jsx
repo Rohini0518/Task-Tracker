@@ -1,13 +1,16 @@
+import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import InfoChips from "./components/InfoChips";
-import TaskCard from "./components/TaskCard";
+
+import WelcomePage from "./pages/WelcomePage";
 
 function App() {
   return (
     <>
       <Header />
-      <InfoChips />
-      <TaskCard />
+      <Routes>
+        <Route path="/" element={<WelcomePage/>}/>
+      </Routes>
+      
     </>
   );
 }
