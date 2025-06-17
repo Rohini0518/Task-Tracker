@@ -1,59 +1,83 @@
-import { AppBar, Toolbar, Typography, Paper, Avatar } from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { green, purple } from "@mui/material/colors";
+import { Typography, Paper, Avatar, Box, Button } from "@mui/material";
+import InfoChips from "./InfoChips";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import AddIcon from "@mui/icons-material/Add";
 
-const Header = () => {
+const Header = ({ filterStatus, setFilterStatus, handleCreateClick }) => {
   return (
-    <AppBar
-      position="static"
+    <Paper
+      elevation={0}
       sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems:"center",
-        backgroundColor: green[500],
-        px: { xs: 2, sm: 4 },
-        borderRadius:4,
-        boxShadow:4,
-        mb:4
+        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        borderRadius: 4,
+        p: 3,
+        mb: 4,
+        color: "white",
       }}
     >
-      <Toolbar sx={{ gap: 2 }}>
-        <Paper
-          sx={{
-            backgroundColor: "white",
-            borderRadius: 2,
-            p: { xs: 0.5, sm: 1 },
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <CheckCircleIcon
-            sx={{
-              color: "#2563eb",
-              fontSize: { xs: 24, sm: 32 },
-            }}
-          />
-        </Paper>
-
-        <Typography
-          variant="h6"
-          sx={{
-            color: "white",
-            fontWeight: "bold",
-            fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
-          }}
-        >
-          Task Tracker
-        </Typography>
-      </Toolbar>
-      <Avatar
-        sx={{ bgcolor: purple[500] }}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          justifyContent: "space-between",
+          alignItems: { xs: "stretch", md: "center" },
+          gap: 2,
+        }}
       >
-        KR
-      </Avatar>
-    </AppBar>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Avatar
+            sx={{
+              bgcolor: "rgba(255,255,255,0.2)",
+              width: 56,
+              height: 56,
+            }}
+          >
+            <TaskAltIcon sx={{ fontSize: 30 }} />
+          </Avatar>
+          <Box>
+            <Typography variant="h4" sx={{ fontWeight: "bold", mb: 0.5 }}>
+              Task Manager
+            </Typography>
+            <Typography variant="subtitle1" sx={{ opacity: 0.9 }}>
+              Organize your work efficiently
+            </Typography>
+          </Box>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: 2,
+            alignItems: "center",
+          }}
+        >
+          <InfoChips selectedStatus={filterStatus} onChange={setFilterStatus} />
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleCreateClick}
+            sx={{
+              bgcolor: "rgba(255,255,255,0.2)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255,255,255,0.3)",
+              color: "white",
+              fontWeight: "bold",
+              borderRadius: 3,
+              px: 3,
+              py: 1.5,
+              "&:hover": {
+                bgcolor: "rgba(255,255,255,0.3)",
+                transform: "translateY(-2px)",
+              },
+              transition: "all 0.3s ease",
+            }}
+          >
+            Create Task
+          </Button>
+        </Box>
+      </Box>
+    </Paper>
   );
 };
 
