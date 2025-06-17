@@ -4,7 +4,7 @@ import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PendingIcon from "@mui/icons-material/Pending";
 
-const InfoChips = ({ selectedStatus, onChange }) => {
+const StatusButtons = ({ selectedStatus, onChange }) => {
   const statuses = [
     {
       label: "All",
@@ -113,4 +113,4 @@ const InfoChips = ({ selectedStatus, onChange }) => {
   );
 };
 
-export default InfoChips;
+export default StatusButtons;

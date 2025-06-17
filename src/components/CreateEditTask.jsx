@@ -14,7 +14,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
-const CreateTask = ({ initialValues = {}, onSubmit }) => {
+const CreateEditTask = ({ initialValues = {}, onSubmit }) => {
   const [form, setForm] = useState({
     title: initialValues.title || "",
     description: initialValues.description || "",
@@ -90,4 +90,4 @@ const CreateTask = ({ initialValues = {}, onSubmit }) => {
   );
 };
 
-export default CreateTask;
+export default CreateEditTask;

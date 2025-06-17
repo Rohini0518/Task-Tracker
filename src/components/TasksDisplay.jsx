@@ -25,7 +25,7 @@ import { green, red, blue, orange, purple } from "@mui/material/colors";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Snackbar, Alert } from "@mui/material";
-import CreateTask from "./CreateTask";
+import CreateEditTask from "./CreateEditTask";
 import Header from "./Header";
 
 const TasksDisplay = () => {
@@ -392,7 +392,7 @@ const TasksDisplay = () => {
               {taskToEdit ? "Edit Task" : "Create Task"}
             </DialogTitle >
             <DialogContent sx={{ p: 3 }}>
-              <CreateTask
+              <CreateEditTask
                 initialValues={taskToEdit || {}}
                 onSubmit={handleCreateOrUpdate}
               />

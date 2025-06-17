@@ -1,5 +1,5 @@
 import { Typography, Paper, Avatar, Box, Button } from "@mui/material";
-import InfoChips from "./InfoChips";
+import StatusButtons from "./StatusButtons";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -52,13 +52,13 @@ const Header = ({ filterStatus, setFilterStatus, handleCreateClick }) => {
             alignItems: "center",
           }}
         >
-          <InfoChips selectedStatus={filterStatus} onChange={setFilterStatus} />
+          <StatusButtons selectedStatus={filterStatus} onChange={setFilterStatus} />
           <Button
             variant="contained"
             startIcon={<AddIcon />}
             onClick={handleCreateClick}
             sx={{
-              bgcolor: "rgba(255,255,255,0.2)",
+              bgcolor: "success",
               backdropFilter: "blur(10px)",
               border: "1px solid rgba(255,255,255,0.3)",
               color: "white",
