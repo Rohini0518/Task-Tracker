@@ -9,11 +9,10 @@ Follow the steps below to set up and run the frontend locally.
 ### 1. Clone the Repository
 
 Clone the repository from GitHub and navigate into the frontend directory:
-
 ```bash
 git clone https://github.com/Rohini0518/Task-Tracker
 cd task-tracker
-```bash
+
 npm install
 npm run dev
 
