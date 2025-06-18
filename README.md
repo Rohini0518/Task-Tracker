@@ -2,6 +2,13 @@
 
 This is the **frontend** of the Task Tracker application built using **React** and **Material UI (MUI)**. It allows users to manage daily tasks with features like create, update, delete, and track status.
 
+## 🌐 Live Deployment
+
+✅ Frontend deployed on **Netlify**:  
+🔗 [https://tasktrackerboard.netlify.app/](https://tasktrackerboard.netlify.app/)
+
+👉 Backend API used: [https://task-tracker-backend-ssk9.onrender.com/](https://task-tracker-backend-ssk9.onrender.com/)
+
 ## 🛠️ Installation & Setup
 
 Follow the steps below to set up and run the frontend locally.
