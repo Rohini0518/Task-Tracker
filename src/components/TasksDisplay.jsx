@@ -47,7 +47,6 @@ const TasksDisplay = () => {
       const response = await axios.get(
         "https://task-tracker-backend-ssk9.onrender.com/api/getAllTasks"
       );
-
       console.log("data", response.data);
       setTasks(response.data);
       setError(null);
@@ -61,7 +60,6 @@ const TasksDisplay = () => {
 
   useEffect(() => {
     fetchTasks();
-    console.log("useeffect");
   }, []);
 
   function formatDate(date) {
