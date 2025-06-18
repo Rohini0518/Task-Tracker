@@ -4,6 +4,8 @@ This is the **frontend** of the Task Tracker application built using **React** a
 
 ## 🌐 Live Deployment
 
+🌐 Live Link:🔗 [https://tasktrackerboard.netlify.app/](https://tasktrackerboard.netlify.app/)
+
 ✅ Frontend deployed on **Netlify**:  
 🔗 [https://tasktrackerboard.netlify.app/](https://tasktrackerboard.netlify.app/)
 
